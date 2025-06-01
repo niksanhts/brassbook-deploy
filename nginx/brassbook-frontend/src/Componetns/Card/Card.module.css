@@ -1,0 +1,9 @@
+.div__card {
+  width: 744px;
+  /* height: 366px; */
+  /* Автолейаут */
+  display: flex;
+  /* background: url("./карточка.png") no-repeat; */
+  margin-top: 16px;
+  /*margin-left: 16px;*/
+}

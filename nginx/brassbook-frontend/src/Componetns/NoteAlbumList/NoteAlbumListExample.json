@@ -1,0 +1,149 @@
+[
+    {
+        "id": "1",
+        "name": "Album 1",
+        "image": "example.jpeg",
+        "NoteList": [
+            {
+                "id": "1",
+                "name": "first",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "2",
+                "name": "second",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "3",
+                "name": "third",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "4",
+                "name": "fourth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "5",
+                "name": "fifth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "6",
+                "name": "sixth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "name": "Album 2",
+        "image": "example.jpeg",
+        "NoteList": [
+            {
+                "id": "7",
+                "name": "seventh",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "8",
+                "name": "eighth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "9",
+                "name": "ninth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "10",
+                "name": "tenth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "11",
+                "name": "eleventh",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "12",
+                "name": "twelfth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            }
+        ]
+    },
+    {
+        "id": "3",
+        "name": "Album 3",
+        "image": "example.jpeg",
+        "NoteList": [
+            {
+                "id": "13",
+                "name": "thirteenth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "14",
+                "name": "fourteenth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "15",
+                "name": "fifteenth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "16",
+                "name": "sixteenth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "17",
+                "name": "seventeenth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            },
+            {
+                "id": "18",
+                "name": "eighteenth",
+                "author": "John Doe",
+                "src": "example.pdf",
+                "img": "example.jpeg"
+            }
+        ]
+    }
+]

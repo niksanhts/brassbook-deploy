@@ -1,0 +1,16 @@
+.wrapper {
+  height: 128px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #FFF;
+
+  font-size: 16px;
+  font-family: Inter;
+  line-height: 140%;
+  color: #B5AEC0;
+
+  border: 1px dashed rgba(35, 11, 63, 0.3);
+}

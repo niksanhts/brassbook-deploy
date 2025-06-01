@@ -1,0 +1,17 @@
+[
+    {
+        "src": "src/assets/images/img01.jpg",
+        "id": "1",
+        "name": "John"
+    },
+    {
+        "src": "src/assets/images/img01.jpg",
+        "id": "2",
+        "name": "Jake"
+    },
+    {
+        "src": "src/assets/images/img01.jpg",
+        "id": "3",
+        "name": "Kolya"
+    }
+]

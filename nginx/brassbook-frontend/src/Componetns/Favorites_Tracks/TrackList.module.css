@@ -1,0 +1,176 @@
+.trackList {
+    display: flex;
+    max-width: 744px;
+    flex-direction: column;
+    justify-content: start;
+  }
+  
+  .track {
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    min-height: 80px;
+    width: 100%;
+    align-items: center;
+    gap: 40px 0px;
+    overflow: hidden;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 8px 12px 8px 8px;
+  }
+  
+  .trackHighlighted {
+    composes: track;
+    border: 2px solid rgba(107, 39, 255, 1);
+  }
+  
+  .trackInfo {
+    align-self: stretch;
+    display: flex;
+    min-width: 240px;
+    align-items: center;
+    gap: 16px;
+    font-family: Nunito, sans-serif;
+    line-height: 1.2;
+  }
+  
+  .trackImage {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 64px;
+    border-radius: 8px;
+    align-self: stretch;
+  }
+  
+  .trackDetails {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    color: rgba(35, 11, 63, 1);
+    letter-spacing: -0.4px;
+  }
+  
+  .trackTitle {
+    font-weight: 700;
+  }
+  
+  .trackSubtitle {
+    font-weight: 500;
+  }
+  
+  .trackDuration {
+    color: rgba(35, 11, 63, 0.3);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.32px;
+  }
+  
+  .trackControls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .controlButton {
+    border-radius: 8px;
+    border: 1px;
+    background-color: rgba(244, 244, 246, 1);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+    font: 600 16px/1.2 Nunito, -apple-system, Roboto, Helvetica, sans-serif;
+    color: rgba(167, 167, 186, 1);
+  }
+  
+  .controlButtonNotes {
+    border-radius: 8px;
+    background-color: rgba(244, 244, 246, 1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(167, 167, 186, 1);
+    white-space: nowrap;
+    letter-spacing: -0.32px;
+    justify-content: start;
+    height: 100%;
+    padding: 6px 12px;
+    font: 600 16px/1.2 Nunito, -apple-system, Roboto, Helvetica, sans-serif;
+    cursor: pointer;
+    border: none;
+  }
+
+  .controlIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+  }
+  
+  .controlIconLarge {
+    composes: controlIcon;
+    width: 40px;
+  }
+  
+  .pagination {
+    border: 0px;
+    display: flex;
+    margin-top: 8px;
+    padding-top: 8px;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+  }
+  
+  .paginationButton {
+    border: 0px;
+    border-radius: 6px;
+    background-color: rgba(244, 244, 246, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0 4px;
+  }
+  
+  .paginationIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 20px;
+    cursor: pointer;
+  }
+  
+  .paginationNumbers {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    letter-spacing: -0.4px;
+    font: 700 20px/1.2 Nunito, -apple-system, Roboto, Helvetica, sans-serif;
+    cursor: pointer;
+  }
+  
+  .paginationActive {
+    color: rgba(107, 39, 255, 1);
+    width: 30px;
+  }
+  
+  .paginationInactive {
+    color: rgba(35, 11, 63, 1);
+    width: 30px;
+  }
+  
+  @media (max-width: 991px) {
+    .track {
+      max-width: 100%;
+    }
+    .trackDetails {
+      white-space: initial;
+    }
+    .controlButton {
+      white-space: initial;
+    }
+  }

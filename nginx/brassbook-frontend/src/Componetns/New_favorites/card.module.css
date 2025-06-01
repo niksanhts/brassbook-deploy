@@ -1,0 +1,261 @@
+
+
+* {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100%;
+    min-width: 320px;
+    background-color: #F4F4F6;
+  }
+
+  body {
+    color: #000;
+    line-height: 1;
+    font-family: "Nunito";
+    font-size: 1.75rem;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  input,
+  button,
+  textarea {
+    font-family: "Nunito";
+    font-size: inherit;
+  }
+  
+  button {
+    cursor: pointer;
+    color: inherit;
+    background-color: inherit;
+  }
+  
+  a {
+    color: inherit;
+  }
+  
+  a:link,
+  a:visited {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: none;
+  }
+  
+  ul li {
+    list-style: none;
+  }
+  
+  img {
+    vertical-align: top;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: inherit;
+    font-size: inherit;
+  }
+.card{
+    border-radius: 20px;
+    padding: 16px;
+    background-color: #fff;
+    color: #000;
+}
+.takeApart{
+    display: inline-block;
+    margin-bottom: 16px;
+}
+.cardContainer{
+    /*padding-top: 20px;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: flex-end;*/
+    /*flex-direction: column;*/
+    max-width: 366px;
+    max-height: 600px;
+}
+
+.nav{
+
+}
+.about{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 15px;
+}
+.image{
+    position: relative;
+    padding-bottom: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.image img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.details{
+    font-size: 24px;
+    line-height: 120%;
+}
+
+.title{
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.artist{
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.version{
+    font-size: 16px;
+    opacity: 0.5;
+}
+.progress{
+    padding: 10px 0;
+}
+
+.progress_bar {
+    border-radius: 30px;
+    background: rgba(255, 198, 42, 0.2);
+}
+
+.progress input{
+    width: 100%;
+}
+
+
+.timer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    
+}
+.timer span{
+    opacity: 0.5;
+}
+
+
+.controls{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+
+}
+.controls:not(:last-child){
+    margin-bottom: 16px;
+}
+.controls button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.controls p{
+    opacity: 0.3;
+    transition: opacity 0.2s ease 0s;
+    font-size: 32px;
+}
+.controls p:hover{
+    opacity: 1;
+    
+}
+.play{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.play div{
+    font-size: 38px;
+}
+.play p{
+    font-size: 32px;
+}
+.play div{
+
+    opacity: 1;
+    transition: opacity 0.2s ease 0s;
+}
+.play:hover div{
+    opacity: 0.7;
+}
+.play p{
+
+    opacity: 1;
+    transition: opacity 0.2s ease 0s;
+}
+.play:hover p{
+    opacity: 0.7;
+}
+.download{
+    width: 100%;
+    color: #6B27FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #6B27FF;
+    font-size: 16px;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: #fff;
+    transition: background-color 0.2s ease 0s, color 0.2s ease 0s;
+}
+.download:hover{
+    background-color: #6B27FF;
+    color: #fff;
+}
+.download p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.download:not(:last-child){
+    margin-bottom: 16px;
+}
+.rate{
+    font-size: 14px;
+
+}
+.rate p{
+    opacity: 0.5;
+    text-align: center;
+}
+.rate__container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+

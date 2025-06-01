@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
+.Library {
+    display: flex;
+    justify-content: space-between;
+    background-color: #EBEBF5 30%;
+}
+
+.content {
+    width: 100%;
+    margin: 20px
+}

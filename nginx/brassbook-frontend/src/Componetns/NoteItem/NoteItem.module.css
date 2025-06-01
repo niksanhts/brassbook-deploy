@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+}
+
+.NoteItem {
+    position: relative;
+    /* width: 270px; */
+    aspect-ratio: 1;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+
+.gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5));
+}
+
+.pContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+    gap: 10px;
+}
+
+.img {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    aspect-ratio: 1;
+    object-position: 50% 50%;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.itemName {
+    color: #FFFFFF;
+    font-size: 24px;
+}
+
+.author {
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+.download {
+    width: max-content;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.3); 
+    /* с градиаентом выглядело не по шаблону, исправить */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    border-radius: 5px;
+
+    color: #FFFFFF;
+    font-size: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 5px;
+
+    z-index: 3;
+}

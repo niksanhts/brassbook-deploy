@@ -1,0 +1,26 @@
+.wrapper {
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 60px;
+  padding: 8px 0;
+  text-align: center;
+
+  color: #FFF;
+  font-size: 14px;
+  line-height: 145%;
+
+  background: linear-gradient(0deg, #9260FF 0%, #6B27FF 100%);
+
+  transition: .2s background, .2s opacity;
+  cursor: pointer;
+}
+
+.buttonDisabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.secondary {
+  background: #F4F4F6;
+}

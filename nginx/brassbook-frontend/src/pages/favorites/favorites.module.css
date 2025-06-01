@@ -1,0 +1,12 @@
+.favorites {
+  display: flex;
+  /* justify-content: space-between; */
+  background-color: #F4F4F6;
+}
+
+.favorites__content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 20px;
+}

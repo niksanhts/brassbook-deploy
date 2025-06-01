@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'iconfont';
+    src:  url('/src/assets/fonts/iconfont.eot?yffmny');
+    src:  url('/src/assets/fonts/iconfont.eot?yffmny#iefix') format('embedded-opentype'),
+      url('/src/assets/fonts/iconfont.ttf?yffmny') format('truetype'),
+      url('/src/assets/fonts/iconfont.woff?yffmny') format('woff'),
+      url('/src/assets/fonts/iconfont.svg?yffmny#iconfont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+  }
+  
+  [class^="_icon-"], [class*=" _icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'iconfont' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+  
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  ._icon-tone:before {
+    content: "\e900";
+  }
+  ._icon-vite:before {
+    content: "\e901";
+  }
+  ._icon-temp:before {
+    content: "\e902";
+  }
+  ._icon-pause:before {
+    content: "\e903";
+  }
+  ._icon-play-white:before {
+    content: "\e904";
+  }
+  ._icon-prev:before {
+    content: "\e905";
+  }
+  ._icon-music-list:before {
+    content: "\e906";
+  }
+  ._icon-next:before {
+    content: "\e907";
+  }
+  ._icon-note:before {
+    content: "\e908";
+  }
+  ._icon-heart:before {
+    content: "\e909";
+  }
+  ._icon-arrow-down:before {
+    content: "\e90a";
+  }
+  ._icon-download:before {
+    content: "\e90b";
+  }

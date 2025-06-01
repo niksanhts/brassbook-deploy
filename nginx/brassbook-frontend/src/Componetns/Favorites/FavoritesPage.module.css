@@ -1,0 +1,90 @@
+.favoritesContainer {
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    max-width: 744px;
+    padding: 16px;
+    gap: 40px 100px;
+    overflow: hidden;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .contentWrapper {
+    display: flex;
+    min-width: 240px;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .headerGroup {
+    display: flex;
+    flex-direction: column;
+    font-family: Nunito, sans-serif;
+    line-height: 1.2;
+    justify-content: start;
+    flex: 1;
+  }
+  
+  .title {
+    align-self: start;
+    gap: 4px;
+    font-size: 32px;
+    color: rgba(35, 11, 63, 1);
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: -0.64px;
+  }
+  
+  @media (max-width: 991px) {
+    .title {
+      white-space: initial;
+    }
+  }
+  
+  .compositionCount {
+    color: rgba(35, 11, 63, 0.3);
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.4px;
+    margin-top: 12px;
+  }
+  
+  .descriptionWrapper {
+    display: flex;
+    margin-top: 12px;
+    align-items: center;
+    gap: 6px;
+    color: rgba(35, 11, 63, 0.8);
+    letter-spacing: -0.24px;
+    font: 400 12px/1.4 Inter, sans-serif;
+  }
+  
+  .navigationLink {
+    border-radius: 8px;
+    align-self: start;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(35, 11, 63, 0.3);
+    letter-spacing: -0.28px;
+    font: 500 14px/1.4 Inter, sans-serif;
+    cursor: pointer;
+  }
+  
+  .icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 20px;
+    border-radius: 4px;
+  }
+  
+  .heroImage {
+    aspect-ratio: 1.23;
+    object-fit: contain;
+    object-position: center;
+    width: 246px;
+    min-width: 240px;
+    margin: auto 0;
+  }

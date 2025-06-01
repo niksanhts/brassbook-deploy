@@ -1,0 +1,33 @@
+.button-type-2 {
+  border-radius: 60px;
+  background: var(--accent-color);
+  display: inline-flex;
+  padding: 8px 24px 8px 24px;
+  width: auto;
+  margin-top: 10px;
+  text-decoration: none;
+  color: var(--font-color);
+  font-family: var(--accent-font);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.28px;
+  text-transform: uppercase;
+  transition: background 0.2s;
+  border: none;
+  justify-content: center;
+  align-items: center;
+}
+.button-type-2:hover {
+  background: linear-gradient(180deg, #EEDD51 31.97%, #EEAF51 86.89%);
+}
+@media (max-width: 767px) {
+  .button-type-2 {
+    padding: 8px 16px;
+  }
+}
+
+.sign-page-button {
+  width: 300px;
+  font-size: 20px;
+}/*# sourceMappingURL=buttonType2.module.css.map */

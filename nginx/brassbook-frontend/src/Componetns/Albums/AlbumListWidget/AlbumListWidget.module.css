@@ -1,0 +1,54 @@
+.wrapper {
+  padding-top: 16px;
+}
+
+.title {
+  font-family: Inter;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 120%;
+  color: var(--title-color);
+  padding: 0;
+  padding-bottom: 16px;
+}
+
+.description {
+  font-size: Inter;
+  font-size: 16px;
+  line-height: 200%;
+  color: var(--font-color);
+
+  padding-bottom: 16px;
+}
+
+.filterList {
+  padding-top: 24px;
+  padding-bottom: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.paginationButton {
+  border: none;
+  outline: none;
+  background: inherit;
+  cursor: pointer;
+
+  font-size: 20px;
+  color: #230B3F;
+  line-height: 120%;
+  font-weight: bold;
+}
+
+.paginationButtonActive {
+  color: #6B27FF;
+}
+
+.pagination {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding-bottom: 200px;
+}

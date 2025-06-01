@@ -1,0 +1,65 @@
+.sign-form__fields-container {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 40px;
+  gap: 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(25, 6, 54, 0.2);
+  margin-bottom: 32px;
+}
+.sign-form__fields-container label {
+  color: #534068;
+  font-family: var(--accent-font);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+.sign__input {
+  padding: 23px 36px;
+  border-radius: 20px;
+  background: #F4F4F6;
+  display: block;
+  width: 720px;
+  border: none;
+}
+.sign__input::-moz-placeholder {
+  color: rgba(25, 6, 54, 0.4);
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.16px;
+}
+.sign__input::placeholder {
+  color: rgba(25, 6, 54, 0.4);
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.16px;
+}
+
+.sign-page-button {
+  width: 300px;
+  font-size: 20px;
+}
+
+.sign-page-button[disabled] {
+  opacity: 0.5;
+}
+
+.sign-form__error {
+  display: flex;
+  align-items: center;
+  margin-left: 26px;
+  font-family: var(--accent-font);
+  font-size: 14px;
+  color: #F37979
+}
+
+.sign-form__error svg {
+  margin-right: 4px;
+}
+
+.label-container {
+  display: flex;
+  align-items: center;
+}

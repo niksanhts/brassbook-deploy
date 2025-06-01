@@ -1,0 +1,15 @@
+.filterGroup {
+    align-self: stretch;
+    display: flex;
+    min-width: 240px;
+    align-items: center;
+    gap: 8px;
+    justify-content: start;
+    flex-wrap: wrap;
+  }
+  
+  @media (max-width: 991px) {
+    .filterGroup {
+      max-width: 100%;
+    }
+  }

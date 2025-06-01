@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+
+.captionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0
+}
+
+.h2 {
+    font-size: 24px;
+}
+
+.caption {
+    font-size: 16px;
+    color: #534068;
+}
+
+.list {
+        display: grid;
+        grid-gap: 15px;
+        grid-template-columns: repeat(auto-fit, minmax(366px, 1fr))
+}
