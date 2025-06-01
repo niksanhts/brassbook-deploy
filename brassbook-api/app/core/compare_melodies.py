@@ -2,10 +2,9 @@ import io
 import logging
 from math import floor
 from typing import List, Optional, Tuple
-#from app.config import AudioConfig
 import librosa
 import numpy as np
-
+from pydub import AudioSegment
 
 class AudioConfig:
     N_MELS = 64
@@ -22,7 +21,7 @@ logging.basicConfig(
 
 
 def compare_melodies(
-    file1: bytes, file2: bytes
+    file1: bytes, file2: bytes, file1_format: str = "mp3", file2_format: str = "webm"
 ) -> Optional[Tuple[float, List[int], List[int], List[int], List[float]]]:
     """Сравнивает две мелодии и возвращает их характеристики."""
     logging.info("Начало сравнения мелодий")
@@ -32,11 +31,11 @@ def compare_melodies(
         if not file1 or not file2:
             raise ValueError("Входные файлы не могут быть пустыми")
 
-        teacher_melody, min_per_t = extract_melody_from_audio(file1)
+        teacher_melody, min_per_t = extract_melody_from_audio(file1, file_format=file1_format)
         if teacher_melody is None:
             raise ValueError("Не удалось извлечь мелодию учителя")
 
-        children_melody, min_per_c = extract_melody_from_audio(file2)
+        children_melody, min_per_c = extract_melody_from_audio(file2, file_format=file2_format)
         if children_melody is None:
             raise ValueError("Не удалось извлечь мелодию ребенка")
 
@@ -68,10 +67,8 @@ def compare_melodies(
         return None
 
 
-
-
 def extract_melody_from_audio(
-    file_bytes: bytes,
+    file_bytes: bytes, file_format: str = "mp3"
 ) -> Tuple[Optional[List[float]], Optional[float]]:
     """Извлекает мелодию из аудиофайла."""
     logging.info("Начало извлечения мелодии из аудиофайла")
@@ -79,12 +76,15 @@ def extract_melody_from_audio(
         if not file_bytes:
             raise ValueError("Пустой файл")
 
-        # Создаем объект BytesIO из переданных байтов
-        audio_file = io.BytesIO(file_bytes)
+        # Convert input to WAV for librosa compatibility
+        audio_segment = AudioSegment.from_file(io.BytesIO(file_bytes), format=file_format)
+        wav_buffer = io.BytesIO()
+        audio_segment.export(wav_buffer, format="wav")
+        wav_buffer.seek(0)  # Reset buffer position
 
-        # Попытка загрузить аудиофайл с использованием librosa
+        # Load audio with librosa
         try:
-            tm, srt = librosa.load(audio_file, sr=None, mono=True)
+            tm, srt = librosa.load(wav_buffer, sr=None, mono=True)
         except librosa.util.exceptions.ParameterError as e:
             logging.error("Ошибка при загрузке аудиофайла с librosa: %s", str(e))
             raise ValueError("Невозможно загрузить аудиофайл")
@@ -129,7 +129,6 @@ def extract_melody_from_audio(
     except Exception as e:
         logging.error("Ошибка в extract_melody_from_audio: %s", str(e))
         return None, None
-
 
 
 def synchronize_melodies(

@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./card.module.css";
-import musics from "../../assets/data"; // В каждом объекте musics должен быть src (URL mp3) и thumbnail
+import musics from "../../assets/data"; // Ensure musics contains src (URL mp3) and thumbnail
 import { timer } from "./timer";
 import { $api } from "../../api/index.js";
-const { createFFmpeg, fetchFile } = await import('@ffmpeg/ffmpeg');
 
 const Player = ({ props: { musicNumber, setMusicNumber } }) => {
   const [duration, setDuration] = useState(1);
@@ -12,47 +11,34 @@ const Player = ({ props: { musicNumber, setMusicNumber } }) => {
   const [playbackRate, setPlaybackRate] = useState(1.0);
   const [pitch, setPitch] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
-  const [ffmpegReady, setFfmpegReady] = useState(false);
-  const [token, setToken] = useState(""); // Токен нужно взять откуда-то (localStorage, контекст и т.п.)
+  const [token, setToken] = useState(() => localStorage.getItem("token") || "");
 
   const audioRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
-  const ffmpegRef = useRef(null);
 
-  // Инициализация ffmpeg.wasm
+  // Clean up MediaRecorder on unmount
   useEffect(() => {
-    const ffmpeg = createFFmpeg({ log: false });
-    ffmpegRef.current = ffmpeg;
-    (async () => {
-      await ffmpeg.load();
-      setFfmpegReady(true);
-    })();
-  }, []);
-
-  useEffect(() => {
-    // Останавливаем запись при размонтировании
     return () => {
       if (mediaRecorderRef.current && isRecording) {
         mediaRecorderRef.current.stop();
+        mediaRecorderRef.current.stream.getTracks().forEach((track) => track.stop());
       }
     };
   }, [isRecording]);
 
-  const handleLoadStart = (e) => {
-    const src = e.nativeEvent.srcElement.src;
-    const audio = new Audio(src);
+  const handleLoadStart = () => {
+    if (!audioRef.current) return;
+    const audio = audioRef.current;
     audio.onloadedmetadata = () => {
       if (audio.readyState > 0) {
         setDuration(audio.duration);
       }
     };
-    if (playing && audioRef.current) {
-      audioRef.current.play();
+    if (playing) {
+      audio.play().catch((err) => console.error("Playback failed:", err));
     }
-    if (audioRef.current) {
-      audioRef.current.playbackRate = playbackRate;
-    }
+    audio.playbackRate = playbackRate;
   };
 
   const handlePlayPause = () => {
@@ -60,7 +46,7 @@ const Player = ({ props: { musicNumber, setMusicNumber } }) => {
     if (playing) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play();
+      audioRef.current.play().catch((err) => console.error("Playback failed:", err));
     }
     setPlaying((prev) => !prev);
   };
@@ -98,18 +84,17 @@ const Player = ({ props: { musicNumber, setMusicNumber } }) => {
   const changePitch = (e) => {
     const p = parseInt(e.target.value, 10);
     setPitch(p);
-    // Для реального pitch-shifting нужен Web Audio API. Здесь заглушка.
+    // TODO: Implement pitch-shifting with Web Audio API if needed
   };
 
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      // Записываем в webm/opus (большинство браузеров поддерживает)
-      const options = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
-        ? { mimeType: "audio/webm;codecs=opus" }
-        : { mimeType: "audio/webm" };
+      const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+        ? "audio/webm;codecs=opus"
+        : "audio/webm";
 
-      mediaRecorderRef.current = new MediaRecorder(stream, options);
+      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType });
       recordedChunksRef.current = [];
 
       mediaRecorderRef.current.ondataavailable = (e) => {
@@ -119,17 +104,17 @@ const Player = ({ props: { musicNumber, setMusicNumber } }) => {
       };
 
       mediaRecorderRef.current.onstop = () => {
-        const blob = new Blob(recordedChunksRef.current, { type: options.mimeType });
+        const blob = new Blob(recordedChunksRef.current, { type: mimeType });
         recordedChunksRef.current = [];
-        convertToMp3AndSend(blob);
+        sendRecording(blob, mimeType);
         stream.getTracks().forEach((track) => track.stop());
       };
 
       mediaRecorderRef.current.start();
       setIsRecording(true);
     } catch (err) {
-      console.error("Ошибка доступа к микрофону:", err);
-      alert("Не удалось получить доступ к микрофону");
+      console.error("Failed to access microphone:", err);
+      alert("Failed to access microphone.");
     }
   };
 
@@ -140,75 +125,35 @@ const Player = ({ props: { musicNumber, setMusicNumber } }) => {
     }
   };
 
-  const convertToMp3AndSend = async (inputBlob) => {
-    if (!ffmpegReady) {
-      alert("ffmpeg ещё не готов, подождите...");
-      return;
-    }
-    try {
-      const ffmpeg = ffmpegRef.current;
-      // Читаем blob в Uint8Array
-      const inputData = await fetchFile(inputBlob);
-
-      // Записываем входной файл в файловую систему ffmpeg
-      ffmpeg.FS("writeFile", "input.webm", inputData);
-
-      // Конвертируем в mp3
-      await ffmpeg.run(
-        "-i",
-        "input.webm",
-        "-b:a",
-        "192k",
-        "-vn",
-        "output.mp3"
-      );
-
-      // Читаем результат
-      const mp3Data = ffmpeg.FS("readFile", "output.mp3");
-      const mp3Blob = new Blob([mp3Data.buffer], { type: "audio/mpeg" });
-
-      sendRecording(mp3Blob, "mp3");
-      // Удаляем временные файлы
-      ffmpeg.FS("unlink", "input.webm");
-      ffmpeg.FS("unlink", "output.mp3");
-    } catch (error) {
-      console.error("Ошибка конвертации в MP3:", error);
-      alert("Не удалось конвертировать запись в MP3");
-    }
-  };
-
-  const sendRecording = async (mp3Blob, ext) => {
+  const sendRecording = async (recordingBlob, mimeType) => {
     try {
       const formData = new FormData();
-
-      // 1. Берём мастер-трек (mp3)
       const masterUrl = musics[musicNumber].src;
       const masterRes = await fetch(masterUrl);
       const masterBlob = await masterRes.blob();
       const masterFile = new File([masterBlob], "file1.mp3", { type: "audio/mpeg" });
 
-      // 2. Файл с микрофона (mp3Blob)
-      const recordedFile = new File([mp3Blob], `file2.${ext}`, { type: "audio/mpeg" });
+      const extension = mimeType.split("/")[1].split(";")[0]; // e.g., "webm"
+      const recordedFile = new File([recordingBlob], `file2.${extension}`, { type: mimeType });
 
       formData.append("file1", masterFile);
       formData.append("file2", recordedFile);
 
-      const response = await $api.post("/api/v1/compare_melodies", formData, {
+      const response = await $api.post("/v1/compare_melodies", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
-          // Content-Type не устанавливаем вручную
         },
       });
 
       if (response.status === 200) {
-        alert("Запись успешно отправлена");
+        alert("Recording sent successfully.");
       } else {
-        console.error("Ошибка при отправке записи, статус:", response.status);
-        alert("Не удалось отправить запись");
+        console.error("Failed to send recording, status:", response.status);
+        alert("Failed to send recording.");
       }
     } catch (error) {
       console.error("Error sending recording:", error);
-      alert("Ошибка при отправке записи на сервер");
+      alert("Error sending recording to server.");
     }
   };
 
@@ -217,7 +162,7 @@ const Player = ({ props: { musicNumber, setMusicNumber } }) => {
       <div className={styles.card}>
         <div className={styles.about}>
           <div className={styles.image}>
-            <img src={musics[musicNumber].thumbnail} alt="" />
+            <img src={musics[musicNumber].thumbnail} alt={musics[musicNumber].title} />
           </div>
           <div className={styles.details}>
             <p className={styles.artist}>{musics[musicNumber].artist}</p>
@@ -262,7 +207,7 @@ const Player = ({ props: { musicNumber, setMusicNumber } }) => {
             src={musics[musicNumber].src}
             hidden
             ref={audioRef}
-            onLoadStart={handleLoadStart}
+            onLoadedMetadata={handleLoadStart}
             onTimeUpdate={handleTimeUpdate}
             onEnded={() => skipTrack(1)}
           />
@@ -304,7 +249,6 @@ const Player = ({ props: { musicNumber, setMusicNumber } }) => {
         <button
           className={`${styles.record} ${isRecording ? styles.recording : ""}`}
           onClick={isRecording ? stopRecording : startRecording}
-          disabled={!ffmpegReady}
         >
           <p>
             <span className={isRecording ? "_icon-stop" : "_icon-mic"}></span>
@@ -315,21 +259,13 @@ const Player = ({ props: { musicNumber, setMusicNumber } }) => {
         <div className={styles.rate}>
           <p>Оцени это произведение</p>
           <div className={styles.rate__container}>
-            <button>
-              <img src="/src/assets/images/face-0.png" alt="" />
-            </button>
-            <button>
-              <img src="/src/assets/images/face-1.png" alt="" />
-            </button>
-            <button>
-              <img src="/src/assets/images/face-2.png" alt="" />
-            </button>
-            <button>
-              <img src="/src/assets/images/face-3.png" alt="" />
-            </button>
-            <button>
-              <img src="/src/assets/images/face-4.png" alt="" />
-            </button>
+            {["face-0.png", "face-1.png", "face-2.png", "face-3.png", "face-4.png"].map(
+              (face, index) => (
+                <button key={index}>
+                  <img src={`/assets/images/${face}`} alt={`Rating ${index}`} />
+                </button>
+              )
+            )}
           </div>
         </div>
       </div>

@@ -16,14 +16,14 @@ compare_router = APIRouter(tags=["compare"])
 )
 async def compare_melodies_route(
     file1: UploadFile = File(..., media_type="audio/mpeg"),
-    file2: UploadFile = File(..., media_type="audio/mpeg")
+    file2: UploadFile = File(..., media_type="audio/webm")  # Allow WebM for file2
 ):
     """
-    Compare two uploaded MP3 files to determine melody similarity.
+    Compare two uploaded audio files to determine melody similarity.
 
     Args:
-        file1: First MP3 file to compare.
-        file2: Second MP3 file to compare.
+        file1: First audio file (must be MP3).
+        file2: Second audio file (must be WebM).
 
     Returns:
         dict: Comparison result or error message.
@@ -34,17 +34,24 @@ async def compare_melodies_route(
     logger.info("Received request to compare melodies: %s, %s", file1.filename, file2.filename)
 
     try:
-        # Validate file size
-        if file1.spool_max_size and file1.spool_max_size > MAX_FILE_SIZE:
-            logger.warning("File1 too large: %s", file1.filename)
-            raise HTTPException(status_code=413, detail="File1 exceeds 10MB limit")
-        if file2.spool_max_size and file2.spool_max_size > MAX_FILE_SIZE:
-            logger.warning("File2 too large: %s", file2.filename)
-            raise HTTPException(status_code=413, detail="File2 exceeds 10MB limit")
+        # Validate file types
+        if file1.content_type != "audio/mpeg":
+            logger.warning("Invalid file1 type: %s", file1.content_type)
+            raise HTTPException(status_code=400, detail="File1 must be an MP3 file")
+        if file2.content_type not in ["audio/webm", "audio/webm;codecs=opus"]:
+            logger.warning("Invalid file2 type: %s", file2.content_type)
+            raise HTTPException(status_code=400, detail="File2 must be a WebM file")
 
-        # Read file contents
+        # Read file contents and validate size
         file1_content = await file1.read()
         file2_content = await file2.read()
+
+        if len(file1_content) > MAX_FILE_SIZE:
+            logger.warning("File1 too large: %s", file1.filename)
+            raise HTTPException(status_code=413, detail="File1 exceeds 10MB limit")
+        if len(file2_content) > MAX_FILE_SIZE:
+            logger.warning("File2 too large: %s", file2.filename)
+            raise HTTPException(status_code=413, detail="File2 exceeds 10MB limit")
 
         # Run comparison in a thread
         logger.debug("Starting melody comparison thread")
@@ -58,7 +65,7 @@ async def compare_melodies_route(
         return comparison_result  # assume this is a dict
 
     except HTTPException:
-        # re-raise any HTTPException (413, 500, etc.)
+        # Re-raise any HTTPException (400, 413, 500, etc.)
         raise
     except Exception as e:
         logger.error("Unexpected error during melody comparison: %s", str(e))
